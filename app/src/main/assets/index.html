@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hello</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #fff;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .button-list {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .button-list li {
+            margin-bottom: 10px;
+        }
+
+        .button-list button {
+            min-width: 140px;
+            max-width: 220px;
+            width: 100%;
+            padding: 10px 18px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    </style>
+    <script type="text/javascript">
+        document.addEventListener("bridgeAvailable", () => {
+          console.log("event received from web!");
+          callAppNative('showBackButton', false);
+          callAppNative('setTitle', "Titolo Pagina!");
+        });
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+          console.log("web DocumentReady!");
+        });
+
+        function multipleCallAppNative() {
+          for (let i = 1; i <= 10; i++) {
+            callAppNative('setTitle', "titolo" + i)
+          }
+        }
+
+        function importData() {
+          let input = document.createElement('input');
+          input.type = 'file';
+          input.onchange = _ => {
+            // you can use this method to get file and perform respective operations
+            let files = Array.from(input.files);
+            console.log(files.length);
+          };
+          input.click();
+        }
+
+        function fromApp(valueFromApp) {
+         alert("Messaggio da Android: " + valueFromApp);
+         console.log("Ricevuto da Android:", msg);
+        }
+    </script>
+</head>
+<body>
+
+
+<div class="button-list">
+    <ul>
+        <li>
+            <button onClick="callAppNative('showBackButton',false)">hideBackButton</button>
+        </li>
+        <li>
+            <button onClick="callAppNative('showBackButton',true)">showBackButton</button>
+        </li>
+        <li>
+            <button onClick="callAppNative('setTitle','Titolo2')">setTitle</button>
+        </li>
+        <li>
+            <button onClick="callAppNative('setNumber',1)">setNumber</button>
+        </li>
+        <li>
+            <button onClick="callAppNative('multipleParameters',true,'gino',4)">multipleParameters
+            </button>
+        </li>
+        <li>
+            <button onClick="multipleCallAppNative()">multupleIteration</button>
+        </li>
+        <li>
+            <button onClick="callAppNative('noParam')">noParam</button>
+        </li>
+        <li>
+            <button onClick="callAppNative('notExistsMethod',1)">errorExample</button>
+        </li>
+        <li>
+            <button onClick="callAppNative('openWebUrl','https://www.google.com')">
+                openWebUrl with url= .pdf
+            </button>
+        </li>
+        <li>
+            <button onclick="importData()">Open FileChooser</button>
+        </li>
+        <li>
+            <button onClick="callAppNative('shareIntent','AYN9ZXX3U7')">Share Action</button>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
+
+
