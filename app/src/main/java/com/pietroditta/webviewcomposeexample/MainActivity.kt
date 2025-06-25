@@ -91,7 +91,7 @@ fun WebViewScreen(
 
         AndroidView(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxSize(),
             factory = { context ->
                 val bridge = JavascriptInterfaceRepository(
                     context = context
